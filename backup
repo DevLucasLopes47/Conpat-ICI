@@ -1,0 +1,79 @@
+app.post('/login', authenticate, (req, res) => {
+  res.redirect('/html/index.html');
+});
+
+// Rota para a tela de login
+app.get('/html/tela', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'tela.html'));
+});
+
+// Redirecionar a raiz para a tela de login
+app.get('/', (req, res) => {
+  res.redirect('/html/tela');
+});
+
+// Rota para o index.html protegida
+app.get('/html/index.html', isAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'index.html'));
+});
+
+app.get('/api/ultimos-patrimonios', async (req, res) => {
+  const query = 'SELECT * FROM patrimonios ORDER BY id DESC LIMIT 8';
+
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+    const [results] = await connection.execute(query);
+    await connection.end();
+    res.json(results);
+  } catch (err) {
+    console.error('Erro ao obter últimos patrimônios:', err);
+    res.status(500).json({ message: 'Erro ao obter últimos patrimônios', error: err });
+  }
+});
+
+// Rota para obter as entradas de equipamentos por mês
+app.get('/api/entradas-mensais', async (req, res) => {
+  const query = `
+    SELECT MONTH(dataEntrada) AS mes, YEAR(dataEntrada) AS ano, COUNT(*) AS entradas
+    FROM patrimonios
+    GROUP BY YEAR(dataEntrada), MONTH(dataEntrada)
+    ORDER BY ano DESC, mes DESC
+  `;
+
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+    const [results] = await connection.execute(query);
+    await connection.end();
+    res.json(results);
+  } catch (err) {
+    console.error('Erro ao obter dados das entradas mensais:', err);
+    res.status(500).json({ message: 'Erro ao obter dados das entradas mensais', error: err });
+  }
+});
+app.get('/api/quantidades-equipamentos', async (req, res) => {
+  const query = `
+    SELECT LOWER(equipamento) AS equipamento, COUNT(*) AS quantidade
+    FROM patrimonios
+    GROUP BY equipamento
+  `;
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+    const [results] = await connection.execute(query);
+    await connection.end();
+
+    // Formata os resultados para JSON no padrão esperado
+    const response = { computadores: 0, monitores: 0, notebooks: 0 };
+    results.forEach(item => {
+      if (item.equipamento.includes('computador')) response.computadores = item.quantidade;
+      else if (item.equipamento.includes('monitor')) response.monitores = item.quantidade;
+      else if (item.equipamento.includes('notebook')) response.notebooks = item.quantidade;
+    });
+
+    res.json(response);
+  } catch (err) {
+    console.error('Erro ao obter quantidades de equipamentos:', err);
+    res.status(500).json({ message: 'Erro ao obter quantidades de equipamentos', error: err });
+  }
+});
+// Rota para os arquivos estáticos (HTML, CSS, JS e imagens)
+app.use(express.static(path.join(__dirname, 'public')));

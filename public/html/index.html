@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="icon" href="/imagens/ici-icon.ico" type="image/x-icon">
+    <title>Pagina Inicial</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Botão de Toggle -->
+            <button class="toggle-btn" id="toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Menu Lateral -->
+            <nav id="sidebar">
+                <img src="/imagens/compatbranca (1) (1).png" alt="Logo da Empresa" class="sidebar-logo">
+                <ul>
+                    <li><a href="cadastro.html"><i class="fas fa-plus-circle"></i> Entrada Equip.</a></li>
+                    <li><a href="saida.html"><i class="fas fa-minus-circle"></i> Saída de Equip.</a></li>
+                    <li><a href="resultados.html"><i class="fas fa-eye"></i> Consulta</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-cogs"></i> Configurações</a></li>
+                    <li class="logout"><a href="tela.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="row">
+            <div id="content" class="col-lg-10 col-md-9 col-sm-8">
+                <!-- Conteúdo Original Mantido -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex flex-grow-1 align-items-center">
+                        <br><br><br><br>
+                        <form class="d-flex flex-grow-1">
+                            <input class="form-control me-2" id="search-bar" type="search" placeholder="🔎 Search..." aria-label="Search">
+                        </form>
+                        <button class="btn btn-secundy mt-3" onclick="window.location.href = 'cadastro.html';">Novo Cadastro</button>
+                    </div>
+                </div>
+            
+                <div class="ola">
+                    <h4>Olá</h4>
+                    <h4 class="lucas">Lucas Gabriel</h4>
+                </div>
+                <div class="d-flex align-items-center flex-wrap">
+                    <div class="logo">
+                        <img src="/imagens/icilogo.png" alt="Logo da Prefeitura">
+                    </div>
+                    <div class="estoque d-flex flex-column align-items-center justify-content-center">
+                        <h6>Relatórios</h6>
+                        <button class="btn btn-primary mt-3" onclick="window.location.href = 'dashboard.html';">Clique</button>
+                    </div>
+                    <div class="computador d-none d-lg-flex flex-column align-items-center justify-content-center">
+                        <h6>Computadores</h6>
+                        <p id="computadores-quantidade">0</p>
+                    </div>
+                    <div class="monitor d-none d-lg-flex flex-column align-items-center justify-content-center">
+                        <h6>Monitores</h6>
+                        <p id="monitores-quantidade">0</p>
+                    </div>
+                    <div class="notebook d-none d-lg-flex flex-column align-items-center justify-content-center">
+                        <h6>Notebooks</h6>
+                        <p id="notebooks-quantidade">0</p>
+                    </div>
+                    <div class="grafico">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <div class="ultimos-registros">
+                        <h6>Últimos Registros</h6>
+                        <ul id="ultimos-registros-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const toggleButton = document.getElementById('toggle-btn');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        // Alterna a visibilidade do menu lateral
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            content.classList.toggle('expanded');
+        });
+        async function carregarGrafico() {
+            try {
+                const response = await fetch('/api/entradas-mensais');
+                const dados = await response.json();
+
+                const meses = dados.map(item => `${item.mes}/${item.ano}`);
+                const entradas = dados.map(item => item.entradas);
+
+                const ctx = document.getElementById('myChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: meses,
+                        datasets: [{
+                            label: 'Entradas Mensais',
+                            data: entradas,
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Erro ao carregar gráfico:', error);
+            }
+        }
+
+        async function carregarUltimosRegistros() {
+        try {
+            const response = await fetch('/api/ultimos-patrimonios');
+            const registros = await response.json();
+
+            const registrosContainer = document.getElementById('ultimos-registros-list');
+            registrosContainer.innerHTML = '';
+
+            // Salva os registros em uma variável global para o filtro
+            window.registrosCache = registros;
+
+            // Exibe inicialmente os três últimos registros
+            exibirRegistros(registros.slice(-3));
+        } catch (error) {
+            console.error('Erro ao carregar últimos registros:', error);
+        }
+    }
+
+    function exibirRegistros(registros) {
+        const registrosContainer = document.getElementById('ultimos-registros-list');
+        registrosContainer.innerHTML = '';
+
+        registros.forEach(registro => {
+            const registroCard = document.createElement('div');
+            registroCard.className = 'list-group-item';
+            registroCard.innerHTML = `
+                <strong>Equipamento:</strong> ${registro.equipamento}<br>
+                <strong>Local:</strong> ${registro.local}<br>
+                <strong>Ação:</strong> ${registro.acao}<br>
+            `;
+            registrosContainer.appendChild(registroCard);
+        });
+    }
+
+    function filtrarRegistros() {
+        const termoBusca = document.getElementById('search-bar').value.toLowerCase();
+
+        const registrosFiltrados = window.registrosCache.filter(registro =>
+            registro.equipamento.toLowerCase().includes(termoBusca) ||
+            registro.local.toLowerCase().includes(termoBusca) ||
+            registro.acao.toLowerCase().includes(termoBusca) ||
+            (registro.patrimonio && registro.patrimonio.toLowerCase().includes(termoBusca))
+        );
+
+        exibirRegistros(registrosFiltrados.slice(-3)); // Limita a exibição a três registros filtrados
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarUltimosRegistros();
+
+        // Adiciona evento ao campo de busca
+        const searchBar = document.getElementById('search-bar');
+        searchBar.addEventListener('input', filtrarRegistros);
+    });
+
+    async function carregarQuantidadesEquipamentos() {
+        try {
+            const response = await fetch('/api/quantidades-equipamentos');
+            const dados = await response.json();
+            document.getElementById('computadores-quantidade').textContent = dados.computadores || '0';
+            document.getElementById('monitores-quantidade').textContent = dados.monitores || '0';
+            document.getElementById('notebooks-quantidade').textContent = dados.notebooks || '0';
+        } catch (error) {
+            console.error('Erro ao carregar quantidades:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarGrafico();
+        carregarUltimosRegistros();
+        carregarQuantidadesEquipamentos();
+    });
+
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        menu.classList.toggle('active');
+    }
+</script>
+</body>
+
+</html>

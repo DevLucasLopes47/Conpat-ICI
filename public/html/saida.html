@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saída de Patrimônios</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/saida.css">
+    <link rel="icon" href="/imagens/ici-icon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Botão de toggle para o menu lateral -->
+            <button class="toggle-btn" id="toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Menu lateral -->
+            <nav id="sidebar">
+                <img src="/imagens/compatbranca (1) (1).png" alt="Logo da Empresa">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="cadastro.html"><i class="fas fa-plus-circle"></i> Entrada Equip.</a></li>
+                    <li><a href="resultados.html"><i class="fas fa-eye"></i> Consulta</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-cogs"></i> Configurações</a></li>
+                </ul>
+                <!-- Espaçador -->
+                <ul class="spacer"></ul>
+                <!-- Botão de logout no final -->
+                <ul>
+                    <li class="logout"><a href="tela.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="container mt-5">
+            <h1 class="text-center">Registrar Saída de Patrimônio</h1>
+            <form id="patrimonioForm">
+                <div class="form-group">
+                    <label for="patrimonio">Patrimônio:</label>
+                    <input type="text" class="form-control" id="patrimonio" required>
+                    <div class="error" id="patrimonioError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="dataSaida">Data de Saída:</label>
+                    <input type="date" class="form-control" id="dataSaida" required>
+                    <div class="error" id="dataSaidaError"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Função para expandir/recolher o menu lateral
+        const toggleButton = document.getElementById('toggle-btn');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            content.classList.toggle('shifted');
+        });
+
+        const form = document.getElementById('patrimonioForm');
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const patrimonio = document.getElementById('patrimonio').value;
+            const dataSaida = document.getElementById('dataSaida').value;
+
+            if (!patrimonio || !dataSaida) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/patrimonios', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ patrimonio, dataSaida }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message || 'Saída registrada com sucesso!');
+                    form.reset();
+                } else {
+                    alert(result.message || 'Erro ao registrar a saída.');
+                }
+            } catch (error) {
+                console.error('Erro ao registrar saída:', error);
+                alert('Erro ao registrar saída. Tente novamente.');
+            }
+        });
+    </script>
+</body>
+
+</html>

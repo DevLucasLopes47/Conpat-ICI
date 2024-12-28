@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Completo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="icon" href="/imagens/ici-icon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Botão de toggle para o menu lateral -->
+
+            <!-- Menu lateral -->
+            <nav id="sidebar">
+                <img src="/imagens/compatbranca (1) (1).png" alt="Logo da Empresa">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="saida.html"><i class="fas fa-minus-circle"></i> Saída de Equip.</a></li>
+                    <li><a href="resultados.html"><i class="fas fa-eye"></i> Consulta</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-cogs"></i> Configurações</a></li>
+                </ul>
+                <!-- Espaçador -->
+                <ul class="spacer"></ul>
+                <!-- Botão de logout no final -->
+                <ul>
+                    <li class="logout"><a href="tela.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+            <!-- Main Content -->
+            <div id="content" class="col-lg-10 col-md-9 col-sm-8">
+                <h1 class="text-center mt-4">Dashboard Completo</h1>
+                <div class="d-flex flex-wrap justify-content-around mt-5">
+                    <!-- Cards -->
+                    <div class="card p-4 text-center" style="width: 18rem;">
+                        <h5>Total de Equipamentos</h5>
+                        <h3 id="total-equipamentos">0</h3>
+                    </div>
+                    <div class="card p-4 text-center" style="width: 18rem;">
+                        <h5>Equipamentos Ativos</h5>
+                        <h3 id="equipamentos-ativos">0</h3>
+                    </div>
+                    <div class="card p-4 text-center" style="width: 18rem;">
+                        <h5>Saídas Registradas</h5>
+                        <h3 id="saidas-registradas">0</h3>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="d-flex flex-wrap justify-content-around mt-5">
+                    <div class="chart-container" style="width: 600px; height: 400px;">
+                        <h5 class="text-center">Distribuição por Tipo de Equipamento</h5>
+                        <canvas id="pieChartDistribuicao"></canvas>
+                    </div>
+                    <div class="chart-container" style="width: 600px; height: 400px;">
+                        <h5 class="text-center">Porcentagem de Ações Realizadas</h5>
+                        <canvas id="pieChartAcoes"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carregar dados avançados
+        async function carregarDadosAvancados() {
+            try {
+                const totalEquipamentosRes = await fetch('/api/patrimonios');
+                const totalEquipamentos = await totalEquipamentosRes.json();
+
+                document.getElementById('total-equipamentos').textContent = totalEquipamentos.length;
+                const ativos = totalEquipamentos.filter(e => !e.dataSaida).length;
+                const saidas = totalEquipamentos.filter(e => e.dataSaida).length;
+
+                document.getElementById('equipamentos-ativos').textContent = ativos;
+                document.getElementById('saidas-registradas').textContent = saidas;
+            } catch (error) {
+                console.error('Erro ao carregar dados avançados:', error);
+            }
+        }
+
+        // Carregar gráfico de distribuição por tipo
+        async function carregarDistribuicaoPorTipo() {
+            try {
+                const res = await fetch('/api/quantidades-equipamentos');
+                const data = await res.json();
+                const labels = Object.keys(data);
+                const valores = Object.values(data);
+
+                new Chart(document.getElementById('pieChartDistribuicao'), {
+                    type: 'pie',
+                    data: {
+                        labels,
+                        datasets: [{
+                            data: valores,
+                            backgroundColor: ['#4D4DFF', '#FF6347', '#32CD32']
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+            } catch (error) {
+                console.error('Erro ao carregar distribuição por tipo:', error);
+            }
+        }
+
+        // Carregar gráfico de ações realizadas
+        async function carregarPorcentagemAcoes() {
+            try {
+                const response = await fetch('/api/acoes-porcentagem');
+                const data = await response.json();
+
+                const labels = Object.keys(data);
+                const valores = Object.values(data);
+
+                new Chart(document.getElementById('pieChartAcoes'), {
+                    type: 'pie',
+                    data: {
+                        labels,
+                        datasets: [{
+                            data: valores,
+                            backgroundColor: ['#FF6347', '#4D4DFF', '#32CD32', '#FFD700']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (tooltipItem) {
+                                        const total = valores.reduce((a, b) => a + b, 0);
+                                        const percent = ((valores[tooltipItem.dataIndex] / total) * 100).toFixed(2);
+                                        return `${labels[tooltipItem.dataIndex]}: ${percent}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Erro ao carregar porcentagem de ações:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarDadosAvancados();
+            carregarDistribuicaoPorTipo();
+            carregarPorcentagemAcoes();
+        });
+    </script>
+</body>
+
+</html>
