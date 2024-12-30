@@ -75,7 +75,7 @@ project/
       <tr>
     <td align="center" style="width: 300px; height: 300px;"colspan="2">
       <h3>Tela de Saida dos Equipamentos</h3>
-      <img src="https://github.com/user-attachments/assets/54104c15-1074-4c1d-9745-5800bcee3d3e" style="width: 100%; height: auto;" alt="">
+      <img src="https://github.com/user-attachments/assets/effeefe1-d23b-4b5d-949c-a91340647138" style="width: 100%; height: auto;" alt="">
     </td>
   </tr>
   <tr>
