@@ -1,7 +1,7 @@
 # Conpat-ICI
 
 ## Visão Geral do Projeto
-Conpat-ICI é uma solução completa para o gerenciamento de patrimônios dentro de organizações. Projetada com uma arquitetura modular e baseada em boas práticas, esta aplicação utiliza tecnologias modernas para oferecer funcionalidades robustas, seguras e escaláveis. Entre os principais recursos estão o controle de autenticação, dashboard dinâmico com gráficos, listagem de registros e interação direta com um banco de dados MySQL para gerenciamento seguro de informações.
+Conpat-ICI é uma solução completa e inovadora para o gerenciamento de entrada e saída de equipamentos em organizações. Este projeto foi desenvolvido para a empresa onde atuo (Instituto das Cidades Inteligentes), com o objetivo de simplificar e otimizar os processos internos, contribuindo diretamente para o aprendizado e o crescimento do jovem aprendiz Kauã, que desempenha um papel importante nesse fluxo. Projetada com uma arquitetura modular e fundamentada em boas práticas de desenvolvimento, esta aplicação utiliza tecnologias modernas para garantir segurança, escalabilidade e eficiência. Entre seus principais recursos, destacam-se o sistema de autenticação seguro, um dashboard dinâmico com gráficos interativos, listagem detalhada de registros e integração direta com um banco de dados MySQL para gerenciamento confiável das informações.
 
 ---
 
