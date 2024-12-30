@@ -84,12 +84,6 @@ project/
       <img src="https://github.com/user-attachments/assets/7f0f030a-f7cd-4b29-83ff-8833f185d125" style="width: 100%; height: auto;" alt=""><br>
     </td>
      </tr>
-    <tr>
-    <td align="center" style="width: 300px; height: 300px;"colspan="2">
-      <h3>Validação QR Code (Cesta Já Retirada)</h3>
-      <img src="https://github.com/user-attachments/assets/057304f4-6bdf-4b1d-aa24-887d7161ebbe" style="width: 100%; height: auto;" alt="">
-    </td>
-  </tr>
   <tr>
     <td align="center" style="width: 300px; height: 300px;" colspan="2">
       <h3>Tela Dashboard</h3>
