@@ -1,103 +1,110 @@
 # Conpat-ICI
 
-## Descrição
-Conpat-ICI é uma aplicação web projetada para gerenciar patrimônios. Este sistema inclui funcionalidades de autenticação de usuário, visualização de relatórios, e dashboards dinâmicos que exibem informações como quantidades de equipamentos, gráficos e registros recentes.
+## Visão Geral do Projeto
+Conpat-ICI é uma solução completa para o gerenciamento de patrimônios dentro de organizações. Projetada com uma arquitetura modular e baseada em boas práticas, esta aplicação utiliza tecnologias modernas para oferecer funcionalidades robustas, seguras e escaláveis. Entre os principais recursos estão o controle de autenticação, dashboard dinâmico com gráficos, listagem de registros e interação direta com um banco de dados MySQL para gerenciamento seguro de informações.
 
 ---
 
-## Estrutura do Projeto
+## Estrutura de Diretórios
+
+O projeto segue uma estrutura bem definida para separar responsabilidades e facilitar a manutenção e expansão:
 
 ```
 project/
 ├── /src
 │   ├── /routes
-│   │   ├── authRoutes.js          # Rotas de autenticação (login, logout, validação)
-│   │   ├── patrimoniosRoutes.js   # Rotas relacionadas aos patrimônios
+│   │   ├── authRoutes.js          # Gerenciamento de login, logout e validação de sessão
+│   │   ├── patrimoniosRoutes.js   # Rotas relacionadas a patrimônios
 │   ├── /controllers
-│   │   ├── patrimoniosController.js # Lógica dos dados de patrimônio
+│   │   ├── patrimoniosController.js # Controlador para lógica de negócio dos patrimônios
 │   ├── /services
-│   │   ├── patrimoniosService.js    # Lógica de negócio e comunicação com o banco
+│   │   ├── patrimoniosService.js    # Funções de serviço e comunicação com o banco
 │   ├── /models
-│   │   ├── db.js                    # Configuração e conexão com o banco de dados
+│   │   ├── db.js                    # Configuração e inicialização do banco de dados
 │   ├── /tools
-│   │   ├── createUser.js            # Script para criar usuários no banco
+│   │   ├── createUser.js            # Script para criar usuários com senhas criptografadas
 │   ├── server.js                    # Configuração principal do servidor
 ├── /config
-│   ├── dbConfig.js                  # Configurações do banco de dados (via .env)
-│   └── .env                         # Variáveis de ambiente
+│   ├── dbConfig.js                  # Configuração do banco de dados com variáveis de ambiente
+│   └── .env                         # Arquivo de variáveis de ambiente
 ├── /public
 │   ├── /html
 │   │   ├── tela.html                # Tela de login
 │   │   ├── index.html               # Dashboard principal
 │   ├── /css                         # Arquivos de estilo
-│   ├── /js                          # Scripts frontend
-│       ├── index.js                 # Lógica para o dashboard
-│       ├── tela.js                  # Lógica para login
-├── package.json                     # Dependências do projeto
-├── README.md                        # Documentação do projeto
+│   ├── /js                          # Scripts de frontend
+│       ├── index.js                 # Lógica do dashboard
+│       ├── tela.js                  # Lógica de autenticação
+├── package.json                     # Dependências e scripts do Node.js
+├── README.md                        # Documentação principal do projeto
 ```
 
 ---
 
-## Funcionalidades
+## Principais Funcionalidades
 
-- **Autenticação**:
-  - Tela de login com validação de usuários (dados armazenados no banco de dados).
-  - Sessões seguras para proteger rotas e conteúdo sensível.
-- **Dashboard**:
-  - Visualização de dados de equipamentos.
-  - Gráficos dinâmicos gerados com base em dados do banco.
+- **Autenticação Segura:**
+  - Login baseado em sessão com validação de credenciais armazenadas no banco de dados.
+  - Senhas criptografadas utilizando `bcrypt` para maior segurança.
+
+- **Dashboard Dinâmico:**
+  - Visualização de gráficos gerados dinamicamente com base nos dados do banco.
   - Listagem de registros recentes.
-- **Controle de Acesso**:
-  - Todas as rotas e páginas estão protegidas por autenticação.
+  - Exibição de estatísticas importantes como contagem de equipamentos.
+
+- **Controle de Acesso:**
+  - Todas as rotas e páginas são protegidas por middleware de autenticação.
+  - Redirecionamento automático para a tela de login caso o usuário não esteja autenticado.
+
+- **Banco de Dados:**
+  - MySQL para armazenamento seguro e eficiente de dados.
+  - Script dedicado para criação de usuários administradores.
 
 ---
 
 ## Tecnologias Utilizadas
 
-- **Backend**:
-  - Node.js
-  - Express
-  - express-session
-  - bcrypt (para criptografia de senhas)
-  - mysql2 (para comunicação com o banco de dados)
+- **Backend:**
+  - Node.js com Express.
+  - express-session para gerenciamento de sessões.
+  - bcrypt para criptografia de senhas.
+  - mysql2 para comunicação com o banco de dados.
 
-- **Frontend**:
-  - HTML5, CSS3
-  - Bootstrap 4.5
-  - JavaScript (vanilla)
+- **Frontend:**
+  - HTML5, CSS3, Bootstrap 4.5.
+  - JavaScript puro para interações dinâmicas.
 
-- **Banco de Dados**:
-  - MySQL
+- **Banco de Dados:**
+  - MySQL.
 
 ---
 
-## Instalação
+## Como Configurar o Projeto
 
-### 1. Clone o Repositório
+### 1. Clonar o Repositório
 ```bash
 git clone https://github.com/DevLucasLopes47/Conpat-ICI.git
 cd Conpat-ICI
 ```
 
-### 2. Configure o Ambiente
-Crie o arquivo `.env` na pasta `/config` com as seguintes variáveis:
-```env
-DB_HOST=localhost
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
-DB_NAME=nome_do_banco
-DB_PORT=3306
-SESSION_SECRET=sua_chave_secreta
-```
-
-### 3. Instale as Dependências
+### 2. Instalar Dependências
 ```bash
 npm install
 ```
 
-### 4. Configure o Banco de Dados
-- Execute o script SQL para criar a tabela `usuarios`:
+### 3. Configurar Variáveis de Ambiente
+Crie um arquivo `.env` na pasta `/config` com o seguinte conteúdo:
+```env
+DB_HOST=localhost
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+DB_NAME=conpat
+DB_PORT=3306
+SESSION_SECRET=sua_chave_secreta
+```
+
+### 4. Configurar o Banco de Dados
+Execute o seguinte script SQL para criar a tabela de usuários:
 ```sql
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -106,73 +113,57 @@ CREATE TABLE usuarios (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
+Comandos para criar tabela patrimonios
+```sql
+CREATE TABLE patrimonios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    equipamento VARCHAR(50) NOT NULL,       -- Nome do equipamento
+    local VARCHAR(100) NOT NULL,            -- Local onde o equipamento está
+    acao VARCHAR(100) NOT NULL,             -- Ação realizada
+    dataEntrada DATE NOT NULL,              -- Data de entrada do equipamento
+    nomeTecnico VARCHAR(100) NOT NULL,      -- Nome do técnico responsável
+    chamadoIci VARCHAR(50) NOT NULL,        -- Número do chamado
+    patrimonio VARCHAR(50) NOT NULL,        -- Número do patrimônio
+    dataSaida DATE DEFAULT NULL             -- Data de saída do equipamento (pode ser NULL)
+);
+```
 
-- Utilize o script `createUser.js` para criar um usuário admin:
+### 5. Criar Usuário Administrador
+Utilize o script `createUser.js` para criar um usuário admin:
 ```bash
 node src/tools/createUser.js
 ```
 
----
-
-## Uso
-
-### 1. Inicie o Servidor
+### 6. Iniciar o Servidor
 ```bash
 node src/server.js
 ```
-O servidor estará rodando em [http://localhost:3000](http://localhost:3000).
-
-### 2. Acesse o Sistema
-- Abra o navegador e acesse `http://localhost:3000/html/tela.html`.
-- Faça login com o usuário criado (ex.: admin/senha).
+O servidor estará disponível em [http://localhost:3000](http://localhost:3000).
 
 ---
 
 ## Scripts Disponíveis
 
-- **Criar Usuários**:
+- **Criar Usuários:**
+  Crie novos usuários com senhas criptografadas utilizando:
   ```bash
   node src/tools/createUser.js
   ```
-  Cria um novo usuário no banco de dados com credenciais criptografadas.
 
-- **Iniciar o Servidor**:
+- **Iniciar o Servidor:**
+  Inicia o servidor local para desenvolvimento:
   ```bash
   node src/server.js
   ```
-  Inicia o servidor para acessar o sistema.
 
 ---
 
-## Melhorias Futuras
+## Possíveis Melhorias
 
-- Integração com APIs externas para relatórios.
-- Melhorias no frontend com frameworks modernos (React/Vue).
-- Implementação de testes automatizados para backend e frontend.
-- Sistema de permissões para diferentes níveis de usuários.
-
----
-
-## Contribuição
-
-Contribuições são bem-vindas! Para contribuir:
-1. Fork este repositório.
-2. Crie uma branch para sua feature ou correção:
-   ```bash
-   git checkout -b minha-feature
-   ```
-3. Faça o commit de suas alterações:
-   ```bash
-   git commit -m "Minha nova feature"
-   ```
-4. Faça o push para a branch:
-   ```bash
-   git push origin minha-feature
-   ```
-5. Abra um Pull Request.
+- Integração com APIs externas para relatórios detalhados.
+- Implementação de testes automatizados com Jest ou Mocha.
+- Melhorias no frontend utilizando frameworks modernos como React ou Vue.
+- Sistema de permissões com diferentes níveis de acesso (admin, usuário regular, etc.).
 
 ---
-
-## Licença
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
