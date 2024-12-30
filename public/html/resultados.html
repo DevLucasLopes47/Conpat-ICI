@@ -34,8 +34,9 @@
                 </ul>
             </nav>
         </div>
-
-        <div class="container mt-5">
+        <div class="row">
+        <div id="content"class="col-lg-10 col-md-9 col-sm-8">
+        <div class="container mt-0">
             <h1 class="text-center">Visualização de Patrimônios</h1>
 
             <!-- Filtros -->
@@ -76,14 +77,12 @@
                     </thead>
                     <tbody id="patrimonioTableBody"></tbody>
                 </table>
+                <div id="paginationControls" class="pagination-controls"></div>
             </div>
-
-            <div id="paginationControls"></div>
-
             <button id="downloadExcelFiltered" class="btn btn-success mt-3">Gerar Planilha (data selecionada)</button>
             <button id="downloadExcelAll" class="btn btn-success mt-3">Baixar Planilha (todos os patrimônios)</button>
         </div>
-
+        </div></div>
         <script src="/js/resultados.js"></script>
     </div>
 </body>

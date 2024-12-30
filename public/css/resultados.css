@@ -271,12 +271,31 @@ h1, h2 {
     background-color: #3A3AFF; /* Azul mais escuro ao passar o mouse */
     transform: scale(1.05); /* Pequeno aumento para destaque */
 }
-#paginationControls {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+.pagination-controls {
     display: flex;
-    gap: 5px;
     justify-content: flex-end;
     align-items: center;
+    padding: 10px;
+    margin-top: -10px; /* Remove espaço adicional */
+}
+
+.pagination-controls button {
+    background-color: #4D4DFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-left: 5px;
+    transition: all 0.3s ease;
+}
+
+.pagination-controls button:hover {
+    background-color: #3A3AFF;
+    transform: scale(1.1);
+}
+
+.pagination-controls .active {
+    background-color: #0026FF;
+    font-weight: bold;
 }
