@@ -170,9 +170,3 @@ Contribuições são bem-vindas! Para contribuir:
    git push origin minha-feature
    ```
 5. Abra um Pull Request.
-
----
-
-## Licença
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
