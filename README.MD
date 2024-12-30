@@ -57,43 +57,43 @@ project/
   <tr>
     <td align="center" style="width: 300px; height: 300px;" colspan="2">
       <h3>Tela de Login</h3>
-      <img src="https://github.com/user-attachments/assets/4890e602-4765-4d2a-8326-db7292157cae" style="width: 100%; height: auto;" alt="Por Terceiros">
+      <img src="https://github.com/user-attachments/assets/4890e602-4765-4d2a-8326-db7292157cae" style="width: 100%; height: auto;" alt="">
     </td>
   </tr>
   <tr>
     <td align="center" style="width: 300px; height: 300px;" colspan="2">
       <h3>Tela Inicial</h3>
-      <img src="(https://github.com/user-attachments/assets/b61dec15-3e70-4fef-8d3c-14cf5331c123" style="width: 100%; height: auto;" alt="Por Terceiros">
+      <img src="https://github.com/user-attachments/assets/b61dec15-3e70-4fef-8d3c-14cf5331c123" style="width: 100%; height: auto;" alt="">
     </td>
   </tr>
   <tr>
     <td align="center" style="width: 300px; height: 300px;"colspan="2">
       <h3>Tela de Entrada dos Equipamentos</h3>
-      <img src="https://github.com/user-attachments/assets/7372dedc-6354-4d39-b8cc-29aa0c633b59" style="width: 100%; height: auto;" alt="QR Code Baixado">
+      <img src="https://github.com/user-attachments/assets/7372dedc-6354-4d39-b8cc-29aa0c633b59" style="width: 100%; height: auto;" alt="">
     </td>
   </tr>
       <tr>
     <td align="center" style="width: 300px; height: 300px;"colspan="2">
       <h3>Tela de Saida dos Equipamentos</h3>
-      <img src="https://github.com/user-attachments/assets/54104c15-1074-4c1d-9745-5800bcee3d3e" style="width: 100%; height: auto;" alt="Validação QR Code">
+      <img src="https://github.com/user-attachments/assets/54104c15-1074-4c1d-9745-5800bcee3d3e" style="width: 100%; height: auto;" alt="">
     </td>
   </tr>
   <tr>
     <td align="center" style="width: 300px; height: 300px;"colspan="2">
       <h3>Tela de Visualização dos Equipamentos</h3>
-      <img src="https://github.com/user-attachments/assets/7f0f030a-f7cd-4b29-83ff-8833f185d125" style="width: 100%; height: auto;" alt="Pode Retirar a Cesta"><br>
+      <img src="https://github.com/user-attachments/assets/7f0f030a-f7cd-4b29-83ff-8833f185d125" style="width: 100%; height: auto;" alt=""><br>
     </td>
      </tr>
     <tr>
     <td align="center" style="width: 300px; height: 300px;"colspan="2">
       <h3>Validação QR Code (Cesta Já Retirada)</h3>
-      <img src="https://github.com/user-attachments/assets/057304f4-6bdf-4b1d-aa24-887d7161ebbe" style="width: 100%; height: auto;" alt="Cesta Já Retirada">
+      <img src="https://github.com/user-attachments/assets/057304f4-6bdf-4b1d-aa24-887d7161ebbe" style="width: 100%; height: auto;" alt="">
     </td>
   </tr>
   <tr>
     <td align="center" style="width: 300px; height: 300px;" colspan="2">
       <h3>Tela Dashboard</h3>
-      <img src="https://github.com/user-attachments/assets/140bc4cf-eed0-4167-a1b1-f2382239fe4a" style="width: 100%; height: auto;" alt="Por Terceiros">
+      <img src="https://github.com/user-attachments/assets/140bc4cf-eed0-4167-a1b1-f2382239fe4a" style="width: 100%; height: auto;" alt="">
     </td>
   </tr>
 </table>
