@@ -9,31 +9,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/resultados.css">
-    <link rel="icon" href="/imagens/ici-icon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/ici-icon.ico" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-
-    <style>
-        #paginationControls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-top: 10px;
-        }
-
-        #paginationControls button {
-            font-size: 0.8rem;
-            padding: 5px 10px;
-            border-radius: 3px;
-        }
-
-        #paginationControls button.active {
-            background-color: #4D4DFF;
-            color: white;
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
@@ -46,7 +23,7 @@
 
             <!-- Menu Lateral -->
             <nav id="sidebar">
-                <img src="/imagens/compatbranca (1) (1).png" alt="Logo da Empresa" class="sidebar-logo">
+                <img src="/images/compatbranca (1) (1).png" alt="Logo da Empresa" class="sidebar-logo">
                 <ul>
                     <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
                     <li><a href="cadastro.html"><i class="fas fa-plus-circle"></i> Entrada de Equip.</a></li>
@@ -107,118 +84,7 @@
             <button id="downloadExcelAll" class="btn btn-success mt-3">Baixar Planilha (todos os patrimônios)</button>
         </div>
 
-        <script>
-            let currentPage = 1;
-            const rowsPerPage = 6;
-            let tableData = [];
-
-            // Função para formatar data no formato dd/mm/aaaa
-            function formatarData(data) {
-                if (!data) return 'Não registrado';
-
-                const dataObj = new Date(data);
-                const dia = String(dataObj.getDate()).padStart(2, '0');
-                const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
-                const ano = dataObj.getFullYear();
-
-                return `${dia}/${mes}/${ano}`;
-            }
-
-            // Função para renderizar a tabela com paginação
-            function renderTable(page) {
-                const tableBody = document.getElementById('patrimonioTableBody');
-                tableBody.innerHTML = ''; // Limpar tabela
-
-                const startIndex = (page - 1) * rowsPerPage;
-                const endIndex = startIndex + rowsPerPage;
-                const rows = tableData.slice(startIndex, endIndex);
-
-                rows.forEach(patrimonio => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${patrimonio.nometecnico}</td>
-                        <td>${patrimonio.equipamento}</td>
-                        <td>${patrimonio.chamadoici}</td>
-                        <td>${patrimonio.acao}</td>
-                        <td>${formatarData(patrimonio.dataEntrada)}</td>
-                        <td>${formatarData(patrimonio.dataSaida)}</td>
-                        <td>${patrimonio.patrimonio}</td>
-                        <td>${patrimonio.local}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-
-                updatePagination();
-            }
-
-            // Atualizar controles de paginação
-            function updatePagination() {
-                const pagination = document.getElementById('paginationControls');
-                pagination.innerHTML = '';
-
-                const totalPages = Math.ceil(tableData.length / rowsPerPage);
-
-                for (let i = 1; i <= totalPages; i++) {
-                    const button = document.createElement('button');
-                    button.textContent = i;
-                    button.classList.add('btn', 'btn-outline-primary');
-                    if (i === currentPage) {
-                        button.classList.add('active');
-                    }
-                    button.onclick = () => {
-                        currentPage = i;
-                        renderTable(currentPage);
-                    };
-                    pagination.appendChild(button);
-                }
-            }
-
-            // Carregar e filtrar patrimônios
-            async function carregarPatrimonios() {
-                const filterDate = document.getElementById('filterDate').value;
-                const filterTecnico = document.getElementById('filterTecnico').value;
-                const filterChamadoICI = document.getElementById('filterChamadoICI').value;
-
-                try {
-                    const response = await fetch('/api/patrimonios');
-                    if (!response.ok) {
-                        throw new Error('Erro ao carregar patrimônios');
-                    }
-                    tableData = await response.json();
-
-                    // Aplicar filtros
-                    if (filterDate) {
-                        tableData = tableData.filter(patrimonio =>
-                            String(patrimonio.dataEntrada).startsWith(filterDate)
-                        );
-                    }
-                    if (filterTecnico) {
-                        tableData = tableData.filter(patrimonio =>
-                            patrimonio.nometecnico.toLowerCase().includes(filterTecnico.toLowerCase())
-                        );
-                    }
-                    if (filterChamadoICI) {
-                        tableData = tableData.filter(patrimonio =>
-                            patrimonio.chamadoici.toLowerCase().includes(filterChamadoICI.toLowerCase())
-                        );
-                    }
-
-                    currentPage = 1;
-                    renderTable(currentPage);
-                } catch (error) {
-                    console.error('Erro:', error);
-                    alert('Erro ao carregar patrimônios.');
-                }
-            }
-
-            // Event listeners para filtros
-            document.getElementById('filterDate').addEventListener('input', carregarPatrimonios);
-            document.getElementById('filterTecnico').addEventListener('change', carregarPatrimonios);
-            document.getElementById('filterChamadoICI').addEventListener('input', carregarPatrimonios);
-
-            // Carregar dados ao iniciar
-            document.addEventListener('DOMContentLoaded', carregarPatrimonios);
-        </script>
+        <script src="/js/resultados.js"></script>
     </div>
 </body>
 

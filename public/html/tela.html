@@ -6,15 +6,15 @@
     <title>Conpat - ICI</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/tela.css">
-    <link rel="icon" href="/imagens/ici-icon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/ici-icon.ico" type="image/x-icon">
 </head>
 <body>
     <header class="header">
         <div class="container">
             <div class="header-content">
                 <a href="" class="header-logo">
-                    <img src="/imagens/47.png" alt="Logo" class="logo-img">
-                    <img src="/imagens/icicuritiba_logo__1_-removebg-preview.png" alt="Logo" class="logo-img" style="width: 70px;">
+                    <img src="/images/47.png" alt="Logo" class="logo-img">
+                    <img src="/images/icicuritiba_logo__1_-removebg-preview.png" alt="Logo" class="logo-img" style="width: 70px;">
                 </a>
                 <nav class="header-nav">
                     <ul class="header-list">
@@ -28,12 +28,12 @@
     <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
         <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
             <div class="text-center mb-4">
-                <img src="/imagens/compatbranca (1) (1).png" alt="Logo" class="img-fluid" style="width: 100%; max-width: 300px">
+                <img src="/images/compatbranca (1) (1).png" alt="Logo" class="img-fluid" style="width: 100%; max-width: 300px">
                 <br>
                 <br>
                 <h6 class="text-white">Somente pessoas autorizadas</h6>
             </div>
-            <form action="/login" method="POST">
+            <form id="login-form" method="POST">
                 <div class="form-group">
                     <label for="username" class="label">Usuário</label>
                     <input type="text" class="form-control" id="username" name="username" required>
@@ -44,6 +44,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
                 <br>
+            </form>
         </div>
     </div>
     <footer>
@@ -51,7 +52,7 @@
             Todos os direitos reservados a 47digitalsolucion&#169; 2024
         </div>
     </footer>
-
+    <script src="/js/tela.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

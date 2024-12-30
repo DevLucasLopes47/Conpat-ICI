@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-image: url('/imagens/e6f98f63-662b-4aea-a579-2c9eb3a92fc2.jpg');
+  background-image: url('/images/e6f98f63-662b-4aea-a579-2c9eb3a92fc2.jpg');
   background-repeat: no-repeat; /* Para não repetir a imagem */
   background-size: cover; /* Para cobrir toda a área do corpo */
 }
@@ -101,7 +101,7 @@ body {
 
 .btn-primary:hover,
 .btn-secundy:hover {
-    background-color: #3A3AFF; /* Azul mais escuro ao passar o mouse */
+    background-color: #4D4DFF; /* Azul mais escuro ao passar o mouse */
     transform: scale(1.05); /* Pequeno aumento para destaque */
 }
 

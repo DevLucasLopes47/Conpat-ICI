@@ -7,7 +7,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <link rel="icon" href="/imagens/ici-icon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/ici-icon.ico" type="image/x-icon">
     <title>Pagina Inicial</title>
 </head>
 
@@ -21,7 +21,7 @@
 
             <!-- Menu Lateral -->
             <nav id="sidebar">
-                <img src="/imagens/compatbranca (1) (1).png" alt="Logo da Empresa" class="sidebar-logo">
+                <img src="/images/compatbranca (1) (1).png" alt="Logo da Empresa" class="sidebar-logo">
                 <ul>
                     <li><a href="cadastro.html"><i class="fas fa-plus-circle"></i> Entrada Equip.</a></li>
                     <li><a href="saida.html"><i class="fas fa-minus-circle"></i> Saída de Equip.</a></li>
@@ -48,11 +48,11 @@
             
                 <div class="ola">
                     <h4>Olá</h4>
-                    <h4 class="lucas">Lucas Gabriel</h4>
+                    <h4 class="lucas" id="nome-usuario">Lucas Gabriel</h4>
                 </div>
                 <div class="d-flex align-items-center flex-wrap">
                     <div class="logo">
-                        <img src="/imagens/icilogo.png" alt="Logo da Prefeitura">
+                        <img src="/images/icilogo.png" alt="Logo da Prefeitura">
                     </div>
                     <div class="estoque d-flex flex-column align-items-center justify-content-center">
                         <h6>Relatórios</h6>
@@ -81,129 +81,8 @@
             </div>
         </div>
     </div>
+    <script src="/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const toggleButton = document.getElementById('toggle-btn');
-        const sidebar = document.getElementById('sidebar');
-        const content = document.getElementById('content');
-
-        // Alterna a visibilidade do menu lateral
-        toggleButton.addEventListener('click', () => {
-            sidebar.classList.toggle('hidden');
-            content.classList.toggle('expanded');
-        });
-        async function carregarGrafico() {
-            try {
-                const response = await fetch('/api/entradas-mensais');
-                const dados = await response.json();
-
-                const meses = dados.map(item => `${item.mes}/${item.ano}`);
-                const entradas = dados.map(item => item.entradas);
-
-                const ctx = document.getElementById('myChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: meses,
-                        datasets: [{
-                            label: 'Entradas Mensais',
-                            data: entradas,
-                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: { beginAtZero: true }
-                        }
-                    }
-                });
-            } catch (error) {
-                console.error('Erro ao carregar gráfico:', error);
-            }
-        }
-
-        async function carregarUltimosRegistros() {
-        try {
-            const response = await fetch('/api/ultimos-patrimonios');
-            const registros = await response.json();
-
-            const registrosContainer = document.getElementById('ultimos-registros-list');
-            registrosContainer.innerHTML = '';
-
-            // Salva os registros em uma variável global para o filtro
-            window.registrosCache = registros;
-
-            // Exibe inicialmente os três últimos registros
-            exibirRegistros(registros.slice(-3));
-        } catch (error) {
-            console.error('Erro ao carregar últimos registros:', error);
-        }
-    }
-
-    function exibirRegistros(registros) {
-        const registrosContainer = document.getElementById('ultimos-registros-list');
-        registrosContainer.innerHTML = '';
-
-        registros.forEach(registro => {
-            const registroCard = document.createElement('div');
-            registroCard.className = 'list-group-item';
-            registroCard.innerHTML = `
-                <strong>Equipamento:</strong> ${registro.equipamento}<br>
-                <strong>Local:</strong> ${registro.local}<br>
-                <strong>Ação:</strong> ${registro.acao}<br>
-            `;
-            registrosContainer.appendChild(registroCard);
-        });
-    }
-
-    function filtrarRegistros() {
-        const termoBusca = document.getElementById('search-bar').value.toLowerCase();
-
-        const registrosFiltrados = window.registrosCache.filter(registro =>
-            registro.equipamento.toLowerCase().includes(termoBusca) ||
-            registro.local.toLowerCase().includes(termoBusca) ||
-            registro.acao.toLowerCase().includes(termoBusca) ||
-            (registro.patrimonio && registro.patrimonio.toLowerCase().includes(termoBusca))
-        );
-
-        exibirRegistros(registrosFiltrados.slice(-3)); // Limita a exibição a três registros filtrados
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        carregarUltimosRegistros();
-
-        // Adiciona evento ao campo de busca
-        const searchBar = document.getElementById('search-bar');
-        searchBar.addEventListener('input', filtrarRegistros);
-    });
-
-    async function carregarQuantidadesEquipamentos() {
-        try {
-            const response = await fetch('/api/quantidades-equipamentos');
-            const dados = await response.json();
-            document.getElementById('computadores-quantidade').textContent = dados.computadores || '0';
-            document.getElementById('monitores-quantidade').textContent = dados.monitores || '0';
-            document.getElementById('notebooks-quantidade').textContent = dados.notebooks || '0';
-        } catch (error) {
-            console.error('Erro ao carregar quantidades:', error);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        carregarGrafico();
-        carregarUltimosRegistros();
-        carregarQuantidadesEquipamentos();
-    });
-
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        menu.classList.toggle('active');
-    }
-</script>
 </body>
 
 </html>
