@@ -91,6 +91,12 @@ project/
     </td>
   </tr>
   <tr>
+ <tr>
+    <td align="center" colspan="2">
+      <img src="https://github.com/user-attachments/assets/2cbba7f5-2b24-42a5-be02-39c3c7ffa86e" alt="Visualização de Resultados" style="width: 100%; height: auto;">
+    </td>
+  </tr>
+  <tr>
     <td align="center" colspan="2">
       <img src="https://github.com/user-attachments/assets/140bc4cf-eed0-4167-a1b1-f2382239fe4a" alt="Saída de Equipamentos" style="width: 100%; height: auto;">
     </td>
