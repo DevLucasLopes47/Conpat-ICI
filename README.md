@@ -117,14 +117,14 @@ Comandos para criar tabela patrimonios
 ```sql
 CREATE TABLE patrimonios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    equipamento VARCHAR(50) NOT NULL,       -- Nome do equipamento
-    local VARCHAR(100) NOT NULL,            -- Local onde o equipamento está
-    acao VARCHAR(100) NOT NULL,             -- Ação realizada
-    dataEntrada DATE NOT NULL,              -- Data de entrada do equipamento
-    nomeTecnico VARCHAR(100) NOT NULL,      -- Nome do técnico responsável
-    chamadoIci VARCHAR(50) NOT NULL,        -- Número do chamado
-    patrimonio VARCHAR(50) NOT NULL,        -- Número do patrimônio
-    dataSaida DATE DEFAULT NULL             -- Data de saída do equipamento (pode ser NULL)
+    equipamento VARCHAR(50) NOT NULL,     
+    local VARCHAR(100) NOT NULL,            
+    acao VARCHAR(100) NOT NULL,            
+    dataEntrada DATE NOT NULL,              
+    nomeTecnico VARCHAR(100) NOT NULL,      
+    chamadoIci VARCHAR(50) NOT NULL,        
+    patrimonio VARCHAR(50) NOT NULL,        
+    dataSaida DATE DEFAULT NULL             
 );
 ```
 
