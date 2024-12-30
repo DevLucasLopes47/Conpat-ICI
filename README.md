@@ -31,10 +31,18 @@ project/
 │   ├── /html
 │   │   ├── tela.html                # Tela de login
 │   │   ├── index.html               # Dashboard principal
+│   │   ├── cadastro.html            # Cadastro de equipamentos
+│   │   ├── resultados.html          # Visualização de patrimônios
+│   │   ├── saida.html               # Saída de patrimônios
+│   │   ├── dashboard.html           # Dashboard detalhado
 │   ├── /css                         # Arquivos de estilo
 │   ├── /js                          # Scripts de frontend
 │       ├── index.js                 # Lógica do dashboard
 │       ├── tela.js                  # Lógica de autenticação
+│       ├── cadastro.js              # Lógica de cadastro de equipamentos
+│       ├── resultados.js            # Lógica de exibição de resultados
+│       ├── saida.js                 # Lógica para registrar saída de equipamentos
+│       ├── dashboard.js             # Lógica dos gráficos do dashboard
 ├── package.json                     # Dependências e scripts do Node.js
 ├── README.md                        # Documentação principal do projeto
 ```
