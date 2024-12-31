@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
-const db = require('../models/db'); // Conexão ao banco de dados
+const db = require('../models/db'); 
 
-// Função para criar um novo usuário
 async function criarUsuario(username, password) {
     try {
         const saltRounds = 10;
@@ -12,13 +11,11 @@ async function criarUsuario(username, password) {
     } catch (error) {
         console.error('Erro ao criar usuário:', error);
     } finally {
-        process.exit(); // Fecha o processo Node.js após execução
+        process.exit();
     }
 }
 
-// Substitua pelos dados desejados
 const username = '';
 const password = '';
 
-// Chamada da função
 criarUsuario(username, password);
