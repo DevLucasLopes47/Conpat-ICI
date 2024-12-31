@@ -1,4 +1,3 @@
-// Alternar menu lateral
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
 const content = document.getElementById('content');
@@ -8,7 +7,6 @@ toggleButton.addEventListener('click', () => {
     content.classList.toggle('shifted');
 });
 
-// Submissão do formulário de saída
 const form = document.getElementById('patrimonioForm');
 form.addEventListener('submit', async function (event) {
     event.preventDefault();
