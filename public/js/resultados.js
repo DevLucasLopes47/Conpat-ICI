@@ -2,7 +2,6 @@ let currentPage = 1;
 const rowsPerPage = 6;
 let tableData = [];
 
-// Função para formatar data no formato dd/mm/aaaa
 function formatarData(data) {
     if (!data) return 'Não registrado';
 
@@ -14,10 +13,9 @@ function formatarData(data) {
     return `${dia}/${mes}/${ano}`;
 }
 
-// Função para renderizar a tabela com paginação
 function renderTable(page) {
     const tableBody = document.getElementById('patrimonioTableBody');
-    tableBody.innerHTML = ''; // Limpar tabela
+    tableBody.innerHTML = ''; 
 
     const startIndex = (page - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
@@ -41,7 +39,6 @@ function renderTable(page) {
     updatePagination();
 }
 
-// Atualizar controles de paginação
 function updatePagination() {
     const pagination = document.getElementById('paginationControls');
     pagination.innerHTML = '';
@@ -63,7 +60,6 @@ function updatePagination() {
     }
 }
 
-// Carregar e filtrar patrimônios
 async function carregarPatrimonios() {
     const filterDate = document.getElementById('filterDate').value;
     const filterTecnico = document.getElementById('filterTecnico').value;
@@ -76,7 +72,6 @@ async function carregarPatrimonios() {
         }
         tableData = await response.json();
 
-        // Aplicar filtros
         if (filterDate) {
             tableData = tableData.filter(patrimonio =>
                 String(patrimonio.dataEntrada).startsWith(filterDate)
@@ -101,7 +96,6 @@ async function carregarPatrimonios() {
     }
 }
 
-// Gerar planilha Excel
 function gerarPlanilha(dados, nomeArquivo) {
     const worksheet = XLSX.utils.json_to_sheet(dados);
     const workbook = XLSX.utils.book_new();
@@ -109,12 +103,10 @@ function gerarPlanilha(dados, nomeArquivo) {
     XLSX.writeFile(workbook, nomeArquivo);
 }
 
-// Baixar planilha filtrada
 function baixarPlanilhaFiltrada() {
     gerarPlanilha(tableData, 'patrimonios_filtrados.xlsx');
 }
 
-// Baixar planilha completa
 async function baixarPlanilhaCompleta() {
     try {
         const response = await fetch('/api/patrimonios');
@@ -128,14 +120,10 @@ async function baixarPlanilhaCompleta() {
     }
 }
 
-// Event listeners para filtros
 document.getElementById('filterDate').addEventListener('input', carregarPatrimonios);
 document.getElementById('filterTecnico').addEventListener('change', carregarPatrimonios);
 document.getElementById('filterChamadoICI').addEventListener('input', carregarPatrimonios);
-
-// Event listeners para botões de download
 document.getElementById('downloadExcelFiltered').addEventListener('click', baixarPlanilhaFiltrada);
 document.getElementById('downloadExcelAll').addEventListener('click', baixarPlanilhaCompleta);
 
-// Carregar dados ao iniciar
 document.addEventListener('DOMContentLoaded', carregarPatrimonios);
