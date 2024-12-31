@@ -1,6 +1,5 @@
 const patrimoniosModel = require('../models/patrimoniosModel');
 
-// Serviço para criar um novo patrimônio
 exports.createPatrimonio = async (data) => {
     try {
         return await patrimoniosModel.insertPatrimonio(data);
@@ -10,7 +9,6 @@ exports.createPatrimonio = async (data) => {
     }
 };
 
-// Serviço para atualizar a saída de um patrimônio
 exports.updatePatrimonioSaida = async (patrimonio, dataSaida) => {
     try {
         return await patrimoniosModel.updatePatrimonioSaida(patrimonio, dataSaida);
@@ -20,7 +18,6 @@ exports.updatePatrimonioSaida = async (patrimonio, dataSaida) => {
     }
 };
 
-// Serviço para obter todos os patrimônios
 exports.getAllPatrimonios = async () => {
     try {
         return await patrimoniosModel.selectAllPatrimonios();
@@ -30,7 +27,6 @@ exports.getAllPatrimonios = async () => {
     }
 };
 
-// Serviço para obter os últimos patrimônios cadastrados
 exports.getUltimosPatrimonios = async () => {
     try {
         return await patrimoniosModel.selectUltimosPatrimonios();
@@ -40,7 +36,6 @@ exports.getUltimosPatrimonios = async () => {
     }
 };
 
-// Serviço para obter entradas mensais
 exports.getEntradasMensais = async () => {
     try {
         return await patrimoniosModel.selectEntradasMensais();
@@ -50,13 +45,10 @@ exports.getEntradasMensais = async () => {
     }
 };
 
-// Serviço para obter quantidades por tipo de equipamento
 exports.getEquipamentosQuantidades = async () => {
     return await patrimoniosModel.selectEquipamentosQuantidades();
 };
 
-
-// Serviço para obter porcentagem de ações realizadas
 exports.getAcoesPorcentagem = async () => {
     try {
         return await patrimoniosModel.selectAcoesPorcentagem();
