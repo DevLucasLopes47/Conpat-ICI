@@ -1,6 +1,5 @@
 const db = require('./db');
 
-// Inserir um novo patrimônio
 exports.insertPatrimonio = async (data) => {
     const query = `
         INSERT INTO patrimonios (nometecnico, equipamento, chamadoici, acao, dataEntrada, patrimonio, local)
@@ -20,7 +19,6 @@ exports.insertPatrimonio = async (data) => {
     return result;
 };
 
-// Atualizar saída de um patrimônio
 exports.updatePatrimonioSaida = async (patrimonio, dataSaida) => {
     const query = `
         UPDATE patrimonios
@@ -31,7 +29,6 @@ exports.updatePatrimonioSaida = async (patrimonio, dataSaida) => {
     return result;
 };
 
-// Selecionar todos os patrimônios
 exports.selectAllPatrimonios = async () => {
     const query = `
         SELECT * FROM patrimonios
@@ -40,7 +37,6 @@ exports.selectAllPatrimonios = async () => {
     return rows;
 };
 
-// Selecionar os últimos patrimônios cadastrados
 exports.selectUltimosPatrimonios = async () => {
     const query = `
         SELECT * FROM patrimonios
@@ -51,7 +47,6 @@ exports.selectUltimosPatrimonios = async () => {
     return rows;
 };
 
-// Selecionar entradas mensais
 exports.selectEntradasMensais = async () => {
     const query = `
         SELECT 
@@ -66,7 +61,6 @@ exports.selectEntradasMensais = async () => {
     return rows;
 };
 
-// Selecionar quantidades por tipo de equipamento
 exports.selectEquipamentosQuantidades = async () => {
     const query = `
         SELECT 
@@ -84,8 +78,6 @@ exports.selectEquipamentosQuantidades = async () => {
     return result;
 };
 
-
-// Selecionar porcentagem de ações realizadas
 exports.selectAcoesPorcentagem = async () => {
     const query = `
         SELECT 
@@ -96,7 +88,6 @@ exports.selectAcoesPorcentagem = async () => {
     `;
     const [rows] = await db.query(query);
 
-    // Transformar os dados em um objeto
     const result = {};
     rows.forEach(row => {
         result[row.acao] = row.quantidade;
