@@ -1,4 +1,3 @@
-// Alternar visibilidade do menu lateral
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
 const content = document.getElementById('content');
@@ -8,7 +7,6 @@ toggleButton.addEventListener('click', () => {
     content.classList.toggle('expanded');
 });
 
-// Função para carregar gráfico de entradas mensais
 async function carregarGrafico() {
     try {
         const response = await fetch('/api/patrimonios/entradas-mensais');
@@ -43,7 +41,6 @@ async function carregarGrafico() {
     }
 }
 
-// Função para carregar últimos registros
 async function carregarUltimosRegistros() {
     try {
         const response = await fetch('/api/patrimonios/ultimos-patrimonios');
@@ -51,8 +48,6 @@ async function carregarUltimosRegistros() {
 
         const registrosContainer = document.getElementById('ultimos-registros-list');
         registrosContainer.innerHTML = '';
-
-        // Exibir os três últimos registros
         registros.slice(-3).forEach(registro => {
             const registroCard = document.createElement('div');
             registroCard.className = 'list-group-item';
@@ -68,13 +63,11 @@ async function carregarUltimosRegistros() {
     }
 }
 
-// Função para carregar quantidades de equipamentos
 async function carregarQuantidades() {
     try {
         const response = await fetch('/api/patrimonios/quantidades-equipamentos');
         const data = await response.json();
 
-        // Mapeia os dados retornados pela API para os IDs do DOM
         document.getElementById('computadores-quantidade').textContent = data.Computador || 0;
         document.getElementById('monitores-quantidade').textContent = data.Monitor || 0;
         document.getElementById('notebooks-quantidade').textContent = data.Notebook || 0;
@@ -82,32 +75,29 @@ async function carregarQuantidades() {
         console.error('Erro ao carregar quantidades de equipamentos:', error);
     }
 }
-// Função para carregar o nome do usuário logado
+
 async function carregarUsuarioLogado() {
     try {
-        const response = await fetch('/auth/me'); // Faz requisição para obter dados do usuário
+        const response = await fetch('/auth/me'); 
         if (response.ok) {
             const data = await response.json();
-            document.getElementById('nome-usuario').textContent = data.username; // Atualiza o DOM
+            document.getElementById('nome-usuario').textContent = data.username; 
         } else {
-            // Se não estiver autenticado, redireciona para a tela de login
             window.location.href = '/html/tela.html';
         }
     } catch (error) {
         console.error('Erro ao carregar o usuário logado:', error);
-        window.location.href = '/html/tela.html'; // Redireciona em caso de erro
+        window.location.href = '/html/tela.html'; 
     }
 }
 
-// Inicializar o carregamento de dados ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
-    carregarUsuarioLogado(); // Carrega o usuário logado
-    carregarGrafico(); // Já existente
-    carregarUltimosRegistros(); // Já existente
-    carregarQuantidades(); // Já existente
+    carregarUsuarioLogado(); 
+    carregarGrafico(); 
+    carregarUltimosRegistros(); // 
+    carregarQuantidades(); /
 });
 
-// Função para alternar menu (caso necessário)
 function toggleMenu() {
     const menu = document.getElementById('menu');
     menu.classList.toggle('active');
