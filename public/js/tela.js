@@ -1,5 +1,5 @@
 document.getElementById('login-form').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Impede o comportamento padrão do formulário
+    event.preventDefault(); 
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -12,10 +12,8 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
         });
 
         if (response.ok) {
-            // Redireciona para o dashboard após login bem-sucedido
             window.location.href = '/html/index.html';
         } else {
-            // Exibe mensagem de erro em caso de login inválido
             const result = await response.json();
             alert(result.message || 'Erro ao tentar fazer login.');
         }
