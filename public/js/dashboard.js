@@ -1,5 +1,4 @@
-       // Carregar dados avançados
-       async function carregarDadosAvancados() {
+    async function carregarDadosAvancados() {
         try {
             const totalEquipamentosRes = await fetch('/api/patrimonios');
             const totalEquipamentos = await totalEquipamentosRes.json();
@@ -15,7 +14,6 @@
         }
     }
 
-    // Carregar gráfico de distribuição por tipo
     async function carregarDistribuicaoPorTipo() {
         try {
             const res = await fetch('/api/patrimonios/quantidades-equipamentos');
@@ -39,7 +37,6 @@
         }
     }
 
-    // Carregar gráfico de ações realizadas
     async function carregarPorcentagemAcoes() {
         try {
             const response = await fetch('/api/patrimonios/acoes-porcentagem');
