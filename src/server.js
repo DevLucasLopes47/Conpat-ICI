@@ -33,10 +33,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', authRoutes);
-
 app.use('/api/patrimonios', patrimoniosRoutes);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+// A Vercel não usa "app.listen", então exportamos a função express diretamente.
+module.exports = app;
